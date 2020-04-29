@@ -1,0 +1,9 @@
+.python-version
+backup_v1py
+*.json
+*.pyc
+settings.yaml
+temp.csv
+/data
+/.vscode
+/__pycache__
