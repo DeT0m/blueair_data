@@ -2,8 +2,8 @@
 backup_v1py
 *.json
 *.pyc
+*.csv
 settings.yaml
-temp.csv
 /data
 /.vscode
 /__pycache__
