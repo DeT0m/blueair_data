@@ -1,8 +1,11 @@
+#!usr/bin/env python3
+import csv
+import os
+import sys
+from datetime import datetime
+import db_secrets
 import database as db
 import google_drive as gd
-from datetime import datetime
-import os
-import csv
 
 
 def migrate_gd_to_db(file_id_list, table):
@@ -46,22 +49,15 @@ def migrate_gd_to_db(file_id_list, table):
 
 
 FOLDER_ID = '1LYKq8vxWBQrS-nlUuAW_53Dtw86vzRS4'
-DATABASE = {
-    'host': '127.0.0.1',
-    'user': 'demouser',
-    'passwd': 'demopassword',
-    'database': 'blueairdb',
-    'table': 'airdata'
-}
 
-os.chdir(os.path.abspath('.'))  # Change working directory
+os.chdir(os.path.dirname(sys.argv[0]))  # Change working directory
 con = db.Connection(  # Connect to database
-    DATABASE['host'],
-    DATABASE['user'],
-    DATABASE['passwd'],
-    DATABASE['database'])
+    db_secrets.DATABASE['host'],
+    db_secrets.DATABASE['user'],
+    db_secrets.DATABASE['passwd'],
+    db_secrets.DATABASE['database'])
 drive = gd.GoogleDriveSession(FOLDER_ID)  # Connect to Google Drive folder
 file_list = drive.get_file_list()  # Get all files from folder
 # Migrate data from Google Drive to database
-migrate_gd_to_db(file_list[:1], DATABASE['table'])
+migrate_gd_to_db(file_list[-2:], db_secrets.DATABASE['table'])
 con.close_connection()  # Close connection with database

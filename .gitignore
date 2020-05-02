@@ -4,6 +4,7 @@ backup_v1py
 *.pyc
 *.csv
 settings.yaml
+db_secrets.py
 /data
 /.vscode
 /__pycache__
